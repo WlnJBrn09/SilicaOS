@@ -34,6 +34,16 @@ sudo ./iso/build.sh
 
 The ISO is written to `iso/out/silicaos-YYYY.MM.DD-x86_64.iso`.
 
+A built image is also in this repo under Git LFS. GitHub’s per-file LFS
+limit is 2 GiB and the ISO is 2.10 GiB, so it is stored as parts:
+
+```bash
+git lfs pull
+./iso/out/assemble.sh
+```
+
+See [iso/out/README.md](iso/out/README.md).
+
 `iso/build.sh` will:
 
 1. Build `omarchy-screensaver`, `omarchy-hyprland-titlebars`, `folio`, and
