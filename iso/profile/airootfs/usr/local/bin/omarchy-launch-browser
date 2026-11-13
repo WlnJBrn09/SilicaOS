@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if command -v brave >/dev/null 2>&1; then
+  exec brave "$@"
+fi
+if command -v brave-browser >/dev/null 2>&1; then
+  exec brave-browser "$@"
+fi
+notify-send -u low 'Brave is not installed' 'Build the ISO with iso/build.sh so brave-bin is in the local repo.'
+exec foot

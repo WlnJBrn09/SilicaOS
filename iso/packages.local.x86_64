@@ -1,0 +1,12 @@
+# Packages not in official Arch repos. iso/build.sh builds these into
+# iso/repo (or /tmp/silicaos-repo) before mkarchiso.
+#
+# brave-bin          AUR — official Brave browser binaries
+# omarchy-screensaver, omarchy-hyprland-titlebars, folio, omasnap
+#                    git sources from github.com/omacom, PKGBUILDs in iso/pkgbuilds/
+
+brave-bin
+omarchy-screensaver
+omarchy-hyprland-titlebars
+folio
+omasnap

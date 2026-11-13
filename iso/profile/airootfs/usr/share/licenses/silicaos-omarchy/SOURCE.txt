@@ -1,0 +1,2 @@
+Omarchy v3.8.4 (commit 8fcc9d6048af4cb0e3af8512c78049857a3b53dd)
+https://github.com/omacom/omarchy

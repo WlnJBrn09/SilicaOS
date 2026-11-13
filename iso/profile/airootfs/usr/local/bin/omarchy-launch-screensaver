@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# omarchy-pkgs installs the binary at this path; Makefile install uses $PREFIX/bin.
+for candidate in \
+  /usr/lib/omarchy-screensaver/omarchy-screensaver \
+  /usr/bin/omarchy-launch-screensaver
+do
+  if [[ -x $candidate && $candidate != "$0" ]]; then
+    exec "$candidate" "$@"
+  fi
+done
+notify-send -u low 'Screensaver missing' 'omarchy-screensaver was not included in this image.'
+exit 1

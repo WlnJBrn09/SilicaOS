@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Simple live-session menu. Omarchy's omarchy-menu is a much larger TUI;
+# this keeps the Waybar logo click working on SilicaOS.
+set -euo pipefail
+choice=$(printf '%s\n' \
+  'Terminal (foot)' \
+  'Browser (Brave)' \
+  'Files (Folio)' \
+  'Screenshot (Omasnap)' \
+  'Screensaver' \
+  'Install (archinstall)' \
+  'Themes' \
+  'Power' \
+  | fuzzel --dmenu --prompt 'SilicaOS > ' || true)
+
+case $choice in
+  'Terminal (foot)') exec foot ;;
+  'Browser (Brave)') exec omarchy-launch-browser ;;
+  'Files (Folio)') exec folio ;;
+  'Screenshot (Omasnap)') exec omasnap ;;
+  'Screensaver') exec omarchy-launch-screensaver ;;
+  'Install (archinstall)') exec foot -e sudo archinstall ;;
+  'Themes') exec silica-theme ;;
+  'Power') exec silica-power ;;
+esac

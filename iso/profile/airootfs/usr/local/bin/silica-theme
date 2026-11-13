@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Browse and clone themes from the vendored Omarchy theme registry catalog.
+# https://github.com/omacom/omarchy-theme-registry
+set -euo pipefail
+registry=/usr/share/silicaos/theme-registry/themes
+dest="${XDG_DATA_HOME:-$HOME/.local/share}/silicaos/themes"
+mkdir -p "$dest"
+
+if [[ ! -d $registry ]]; then
+  echo "Theme registry catalog is missing at $registry" >&2
+  exit 1
+fi
+
+mapfile -t names < <(python3 - "$registry" <<'PY'
+import json, os, sys
+root = sys.argv[1]
+for name in sorted(os.listdir(root)):
+    if not name.endswith(".json"):
+        continue
+    with open(os.path.join(root, name), encoding="utf-8") as fh:
+        data = json.load(fh)
+    print(f"{data.get('name') or data.get('slug')}  ({data.get('slug')})")
+PY
+)
+
+choice=$(printf '%s\n' "${names[@]}" | fuzzel --dmenu --prompt 'Install theme > ' || true)
+[[ -n $choice ]] || exit 0
+slug=${choice##*(}
+slug=${slug%)}
+
+python3 - "$registry" "$slug" "$dest" <<'PY'
+import json, os, subprocess, sys
+root, slug, dest = sys.argv[1], sys.argv[2], sys.argv[3]
+path = os.path.join(root, f"{slug}.json")
+if not os.path.isfile(path):
+    raise SystemExit(f"unknown theme {slug}")
+with open(path, encoding="utf-8") as fh:
+    data = json.load(fh)
+repo = data["repo"]
+target = os.path.join(dest, slug)
+if os.path.isdir(os.path.join(target, ".git")):
+    print(f"already cloned: {target}")
+else:
+    subprocess.check_call(["git", "clone", "--depth", "1", repo, target])
+print(target)
+PY

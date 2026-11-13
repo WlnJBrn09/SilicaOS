@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Create the live user, seed skel configs, and allow systemd --user (PipeWire).
+set -euo pipefail
+
+if ! id silica >/dev/null 2>&1; then
+  useradd -m -u 1000 -c "SilicaOS Live User" -G wheel,video,audio,input,render,storage,network -s /usr/bin/zsh silica
+fi
+
+echo 'silica:silica' | chpasswd
+
+mkdir -p /home/silica
+if [[ ! -f /home/silica/.config/hypr/hyprland.conf ]]; then
+  cp -a /etc/skel/. /home/silica/
+fi
+chown -R silica:silica /home/silica
+
+mkdir -p /var/lib/systemd/linger
+touch /var/lib/systemd/linger/silica
+
+# Theme pointer used by Waybar / Foot / Hyprlock (Omarchy layout).
+install -d -o silica -g silica /home/silica/.config/omarchy/current
+ln -sfn /usr/share/silicaos/theme /home/silica/.config/omarchy/current/theme
+ln -sfn /usr/share/silicaos/theme/background.png /home/silica/.config/omarchy/current/background
+chown -h silica:silica /home/silica/.config/omarchy/current/theme /home/silica/.config/omarchy/current/background || true
