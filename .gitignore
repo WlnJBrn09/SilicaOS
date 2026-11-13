@@ -1,6 +1,8 @@
+iso/out/
 iso/work/
 iso/repo/
-# Assembled image (>2GiB). GitHub LFS stores the .iso.part* siblings instead.
-iso/out/*.iso
+*.iso
+*.iso.sha256
 *~
 .DS_Store
+

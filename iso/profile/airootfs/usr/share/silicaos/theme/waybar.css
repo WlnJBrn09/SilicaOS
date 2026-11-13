@@ -1,3 +1,4 @@
-/* Tokyo Night palette from Omarchy themes/tokyo-night/colors.toml (MIT, DHH). */
-@define-color foreground #a9b1d6;
-@define-color background #1a1b26;
+/* Great Wave palette: white ground, black wave, red sun. */
+@define-color foreground #111111;
+@define-color background #ffffff;
+@define-color accent #e60012;

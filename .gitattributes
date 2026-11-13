@@ -1,4 +1,0 @@
-# GitHub Free/Pro LFS max is 2GiB. This ISO is 2.10GiB, so the bootable
-# image is stored as LFS parts and assembled locally. Track both patterns.
-*.iso filter=lfs diff=lfs merge=lfs -text
-*.iso.part* filter=lfs diff=lfs merge=lfs -text

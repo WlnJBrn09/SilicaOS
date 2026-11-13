@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Start a Hyprland Wayland session for the live (or installed) user.
+# Hyprland 0.57.2 looks for hyprland.lua first and autogenerates a default
+# config unless we pass -c to the shipped hyprland.conf.
 set -euo pipefail
 export XDG_SESSION_TYPE=wayland
 export XDG_SESSION_DESKTOP=Hyprland
@@ -7,4 +9,6 @@ export XDG_CURRENT_DESKTOP=Hyprland
 export MOZ_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORM=wayland
 export GDK_BACKEND=wayland,x11
-exec Hyprland
+CONF="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprland.conf"
+export HYPRLAND_CONFIG="$CONF"
+exec Hyprland -c "$CONF"
