@@ -32,10 +32,35 @@ sudo pacman -S --needed archiso base-devel git
 sudo ./iso/build.sh
 ```
 
-The ISO is written to `iso/out/silicaos-YYYY.MM.DD-x86_64.iso`.
+The ISO is written to `iso/out/silicaos-YYYY.MM.DD-x86_64.iso`. The profile
+stays in git; the bootable image is meant to ship as a
+[GitHub Release](https://github.com/WlnJBrn09/SilicaOS/releases/tag/2026.11.13)
+asset, not as a git blob.
 
-GitHub Free/Pro Git LFS rejects a single file over 2 GiB. The built image is
-2.10 GiB, so it is **not** stored in this repository (no split parts).
+### Download (2026.11.13)
+
+| | |
+| --- | --- |
+| File | `silicaos-2026.11.13-x86_64.iso` (2,259,714,048 bytes, 2.10 GiB) |
+| SHA-256 | `89db1c1709ec3e44f3d8178ce6728db1a55c0af34b31f6cf98f58e59e94d354f` |
+| Release | https://github.com/WlnJBrn09/SilicaOS/releases/tag/2026.11.13 |
+
+**The ISO is not on that release.** GitHub rejected the asset upload:
+
+```
+HTTP 422: Validation Failed
+(https://uploads.github.com/repos/WlnJBrn09/SilicaOS/releases/443822368/assets?name=silicaos-2026.11.13-x86_64.iso)
+size must be less than 2147483648
+```
+
+GitHub’s per-file cap is 2 GiB (2,147,483,648 bytes). This image is 107 MiB over.
+Build it locally with the command above (no split parts in git).
+
+### Install
+
+1. Flash the ISO to USB (`dd`, Ventoy, or similar) or boot it in a VM (QEMU/KVM, ≥3 GiB RAM for live; ≥8 GiB to run `archinstall`).
+2. Live user: `silica` / `silica` (Hyprland on TTY1). TTY2 is `root` with an empty password.
+3. Install with `archinstall` from the live session or TTY2.
 
 Default wallpaper is Hokusai’s Great Wave (white ground, red sun, black wave).
 Hyprland 0.57.2 is launched with `Hyprland -c ~/.config/hypr/hyprland.conf`.
