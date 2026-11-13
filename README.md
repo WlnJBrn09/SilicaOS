@@ -33,28 +33,18 @@ sudo ./iso/build.sh
 ```
 
 The ISO is written to `iso/out/silicaos-YYYY.MM.DD-x86_64.iso`. The profile
-stays in git; the bootable image is meant to ship as a
-[GitHub Release](https://github.com/WlnJBrn09/SilicaOS/releases/tag/2026.11.13)
-asset, not as a git blob.
+stays in git; the bootable image is hosted as a public object, not as a git blob.
 
 ### Download (2026.11.13)
 
 | | |
 | --- | --- |
-| File | `silicaos-2026.11.13-x86_64.iso` (2,259,714,048 bytes, 2.10 GiB) |
+| File | [`silicaos-2026.11.13-x86_64.iso`](https://fzn8orkzkoaggkog.public.blob.vercel-storage.com/silicaos-2026.11.13-x86_64.iso) (2,259,714,048 bytes, 2.10 GiB) |
 | SHA-256 | `89db1c1709ec3e44f3d8178ce6728db1a55c0af34b31f6cf98f58e59e94d354f` |
-| Release | https://github.com/WlnJBrn09/SilicaOS/releases/tag/2026.11.13 |
+| Host | Vercel Blob (public HTTPS, one file) |
+| Release notes | https://github.com/WlnJBrn09/SilicaOS/releases/tag/2026.11.13 |
 
-**The ISO is not on that release.** GitHub rejected the asset upload:
-
-```
-HTTP 422: Validation Failed
-(https://uploads.github.com/repos/WlnJBrn09/SilicaOS/releases/443822368/assets?name=silicaos-2026.11.13-x86_64.iso)
-size must be less than 2147483648
-```
-
-GitHub’s per-file cap is 2 GiB (2,147,483,648 bytes). This image is 107 MiB over.
-Build it locally with the command above (no split parts in git).
+Flash that `.iso` in Etcher, `dd`, or Ventoy. GitHub Releases cannot hold it (HTTP 422: `size must be less than 2147483648`; GitHub’s cap is 2 GiB). No split parts.
 
 ### Install
 
