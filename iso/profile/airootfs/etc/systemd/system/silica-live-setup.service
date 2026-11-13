@@ -1,0 +1,13 @@
+[Unit]
+Description=SilicaOS live user and desktop seed
+DefaultDependencies=no
+After=systemd-sysusers.service systemd-tmpfiles-setup.service
+Before=getty@tty1.service greetd.service multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/silica-live-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

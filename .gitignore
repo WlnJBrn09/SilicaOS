@@ -1,0 +1,7 @@
+iso/out/
+iso/work/
+iso/repo/
+*.iso
+*.iso.sha256
+*~
+.DS_Store

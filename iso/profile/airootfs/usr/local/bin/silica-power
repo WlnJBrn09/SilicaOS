@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+choice=$(printf '%s\n' Lock Logout Reboot Shutdown | fuzzel --dmenu --prompt 'Power > ' || true)
+case $choice in
+  Lock) loginctl lock-session || hyprlock ;;
+  Logout) hyprctl dispatch exit ;;
+  Reboot) systemctl reboot ;;
+  Shutdown) systemctl poweroff ;;
+esac
